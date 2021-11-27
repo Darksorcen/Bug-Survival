@@ -1,0 +1,80 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://src/assets/images/bugillnessbar/sprite_2.png" type="Texture" id=1]
+[ext_resource path="res://src/scripts/HUD.gd" type="Script" id=2]
+[ext_resource path="res://src/assets/images/bugillnessbar/sprite_1.png" type="Texture" id=3]
+[ext_resource path="res://src/assets/images/bugillnessbar/sprite_0.png" type="Texture" id=4]
+[ext_resource path="res://src/assets/fonts/pixel_operator/PixelOperatorMono.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://src/assets/images/game_jam_off_2021_bug_2_dead.png" type="Texture" id=6]
+[ext_resource path="res://src/assets/fonts/casio_fx_702p/casio-fx-702p.ttf" type="DynamicFontData" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+font_data = ExtResource( 5 )
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+
+void fragment(){
+	//col.gb += 5.*sin(5.*TIME+UV.y);
+	COLOR = vec4(1., 0., 0., 1.);
+	COLOR.gb += smoothstep(0.2, 0.8, sin(TIME*4.)*5.);
+	
+	COLOR = texture(TEXTURE,UV) * COLOR;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 28
+font_data = ExtResource( 7 )
+
+[node name="Control" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="BugIllnessBar" type="TextureProgress" parent="."]
+margin_left = 5.0
+margin_top = 9.0
+margin_right = 125.0
+margin_bottom = 36.0
+rect_scale = Vector2( 1.5, 1 )
+texture_under = ExtResource( 1 )
+texture_over = ExtResource( 4 )
+texture_progress = ExtResource( 3 )
+tint_under = Color( 0.180392, 0.831373, 0.831373, 1 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="."]
+margin_left = 855.0
+margin_top = 12.0
+margin_right = 939.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 1 )
+text = "0"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BugDead" type="Sprite" parent="Score"]
+position = Vector2( 132.795, 24.7246 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 6 )
+
+[node name="WaveText" type="Label" parent="."]
+visible = false
+material = SubResource( 3 )
+margin_left = 289.243
+margin_top = 12.4142
+margin_right = 643.243
+margin_bottom = 88.4142
+custom_fonts/font = SubResource( 4 )
+text = "Time left :"
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,0 +1,76 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://src/assets/images/game_jam_off_2021_bug_2 (1).png" type="Texture" id=8]
+[ext_resource path="res://src/scripts/enemy.gd" type="Script" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 23.2952, 18.7294 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 24, 30 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 8 )
+region = Rect2( 24, 0, 24, 30 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 8 )
+region = Rect2( 48, 0, 24, 30 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 30, 24, 30 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 8 )
+region = Rect2( 24, 30, 24, 30 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 8 )
+region = Rect2( 48, 30, 24, 30 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 60, 24, 30 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "run2",
+"speed": 12.0
+}, {
+"frames": [ null, null, null, null, null, null, null ],
+"loop": true,
+"name": "walk",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 22.6008, 18.0571 )
+
+[node name="Enemy" type="KinematicBody2D" groups=[
+"enemies",
+]]
+position = Vector2( 44.8868, 37.8466 )
+collision_layer = 3
+script = ExtResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+rotation = 1.5708
+scale = Vector2( 1.5, 1.5 )
+frames = SubResource( 9 )
+animation = "run2"
+frame = 4
+playing = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 10 )
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

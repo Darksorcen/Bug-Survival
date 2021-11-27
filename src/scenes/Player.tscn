@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://src/assets/images/player_idle.png" type="Texture" id=1]
+[ext_resource path="res://src/scripts/player.gd" type="Script" id=2]
+[ext_resource path="res://src/scenes/Weapon.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 15.6979, 16.3082 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 16.4729, 16.4849 )
+
+[node name="Player" type="KinematicBody2D"]
+collision_layer = 2
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.0385075, -0.0283704 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -0.199867, -0.0440121 )
+frames = SubResource( 2 )
+animation = "idle"
+
+[node name="Weapon" parent="." instance=ExtResource( 3 )]
+position = Vector2( 15.9615, 5.97163 )
+
+[node name="BulletTimer" type="Timer" parent="."]
+wait_time = 0.8
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -0.0462799, 0.05266 )
+shape = SubResource( 3 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.8, 0.8 )
+
+[node name="ShootSFX" type="AudioStreamPlayer" parent="."]
+volume_db = -20.0
+pitch_scale = 0.7
+
+[connection signal="timeout" from="BulletTimer" to="." method="_on_BulletTimer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
