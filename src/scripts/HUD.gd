@@ -9,7 +9,8 @@ func _on_Player_hit(bugillness):
 	
 
 func _on_Player_add_score(score):
-	$Score.text = str(score)
+	$Score.set_text(str(score))
+	print(str(score))
 
 
 func _on_SpawnManager_show_text_wave():

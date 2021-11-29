@@ -1,10 +1,14 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/assets/audio/music/Brave Pilots (Menu Screen).ogg" type="AudioStream" id=1]
-[ext_resource path="res://src/assets/fonts/casio_fx_702p/casio-fx-702p.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://src/assets/fonts/pixel_operator/PixelOperator8.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://src/scripts/menu.gd" type="Script" id=3]
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="DynamicFont" id=1]
+size = 50
+font_data = ExtResource( 2 )
+
+[sub_resource type="Shader" id=2]
 code = "shader_type canvas_item;
 
 void fragment(){
@@ -12,37 +16,55 @@ void fragment(){
 	COLOR.rg += sin(1.5*TIME+UV.x);
 }"
 
-[sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
 
-[sub_resource type="StreamTexture" id=3]
+[sub_resource type="StreamTexture" id=4]
 load_path = "res://.import/player_idle.png-015541e98c5594fae269bc1f911640cf.stex"
 
-[sub_resource type="DynamicFont" id=4]
-size = 28
+[sub_resource type="DynamicFont" id=5]
+size = 32
 font_data = ExtResource( 2 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( -294.327, -41.8997 )
+mouse_filter = 2
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="."]
-margin_left = -38.0
-margin_top = -23.0
-margin_right = 1070.0
-margin_bottom = 620.0
+[node name="TextureRect" type="ColorRect" parent="."]
+margin_left = -79.0
+margin_top = -113.0
+margin_right = 1191.0
+margin_bottom = 687.0
+mouse_filter = 2
 mouse_default_cursor_shape = 4
+color = Color( 0.137255, 0.14902, 0.160784, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainTitle" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -229.0
+margin_top = 78.0
+margin_right = 267.0
+margin_bottom = 166.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.113725, 0.611765, 0.803922, 1 )
+text = "Bug Survival"
+uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="PlayButton" type="TextureButton" parent="."]
-material = SubResource( 2 )
+material = SubResource( 3 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -52,7 +74,7 @@ margin_top = -66.0
 margin_right = 190.5
 margin_bottom = 66.0
 mouse_default_cursor_shape = 4
-texture_normal = SubResource( 3 )
+texture_normal = SubResource( 4 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -67,10 +89,13 @@ margin_left = -48.0
 margin_top = -16.0
 margin_right = 48.0
 margin_bottom = 16.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 text = "Play"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
@@ -78,4 +103,4 @@ volume_db = -10.0
 autoplay = true
 mix_target = 2
 
-[connection signal="pressed" from="PlayButton" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="PlayButton" to="." method="_on_PlayButton_pressed"]

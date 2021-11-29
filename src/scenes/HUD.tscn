@@ -6,7 +6,7 @@
 [ext_resource path="res://src/assets/images/bugillnessbar/sprite_0.png" type="Texture" id=4]
 [ext_resource path="res://src/assets/fonts/pixel_operator/PixelOperatorMono.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://src/assets/images/game_jam_off_2021_bug_2_dead.png" type="Texture" id=6]
-[ext_resource path="res://src/assets/fonts/casio_fx_702p/casio-fx-702p.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://src/assets/fonts/pixel_operator/PixelOperator8.ttf" type="DynamicFontData" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 40
@@ -75,6 +75,7 @@ margin_right = 643.243
 margin_bottom = 88.4142
 custom_fonts/font = SubResource( 4 )
 text = "Time left :"
+uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

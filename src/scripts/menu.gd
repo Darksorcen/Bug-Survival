@@ -1,6 +1,5 @@
 extends Control
 
 
-func _on_Play_pressed():
+func _on_PlayButton_pressed():
 	get_tree().change_scene("res://Main.tscn")
-	

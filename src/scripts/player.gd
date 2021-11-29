@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 
 var Bullet = preload("res://src/scenes/Bullet.tscn")
-var Weapon = preload("res://src/scripts/Weapon.gd")
+var Weapon = preload("res://src/scripts/weapon.gd")
 onready var Main = get_parent()
 export var SPEED = 500
 export var bullet_speed = 1000
@@ -99,7 +99,7 @@ func check_score():
 			
 	
 func kill():
-	get_tree().reload_current_scene()
+	get_tree().change_scene("res://src/scenes/Menu.tscn")
 	
 		
 func _on_BulletTimer_timeout():
@@ -121,7 +121,5 @@ func change_weapon(weapon_name):
 	current_weapon = weapon_name
 	$Weapon.set_texture(weapon.get_image(weapon_name))
 	get_tree().call_group("enemies", "set_damage", weapon.get_damage())
-	
-	
 	
 	
